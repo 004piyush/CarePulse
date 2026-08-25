@@ -4,5 +4,6 @@ public enum BedStatus {
     AVAILABLE,
     RESERVED,
     OCCUPIED,
-    CLEANING;
+    CLEANING,
+    bullshit;
 }
