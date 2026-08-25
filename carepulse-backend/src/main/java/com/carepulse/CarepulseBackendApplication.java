@@ -1,4 +1,4 @@
-package com.carepulse.carepulse_backend;
+package com.carepulse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
