@@ -11,7 +11,7 @@ import com.carepulse.enums.Ward;
 import java.util.List;
 
 public interface BedService {
-    List<BedResponse> getAllBeds(Ward wards, BedStatus bed, Boolean hasVentilator, String search);
+    List<BedResponse> getAllBeds(Ward ward, BedStatus status, Boolean hasVentilator, String search);
 
     MetricsResponse getMetrics();
 
