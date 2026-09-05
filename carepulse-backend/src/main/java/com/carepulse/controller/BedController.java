@@ -41,7 +41,7 @@ public class BedController {
         return ResponseEntity.ok(bedService.getMetrics());
     }
 
-    @GetMapping("/{id}/reserve")
+    @PostMapping("/{id}/reserve")
     @PreAuthorize("hasAnyRole('TRIAGE', 'ADMIN')")
     public ResponseEntity<BedResponse> reserveBed(
             @PathVariable Long id,
