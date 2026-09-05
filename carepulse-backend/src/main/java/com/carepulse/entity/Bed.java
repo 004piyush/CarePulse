@@ -30,7 +30,7 @@ public class Bed {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BedStatus bedStatus;
+    private BedStatus status;
 
     @Column(nullable = false)
     private Boolean hasVentilator;
