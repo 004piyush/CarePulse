@@ -1,26 +1,23 @@
 package com.carepulse.entity;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Patients")
+@Table(name = "patients")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Patient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "patient_id", unique = true, nullable = false)
     private String patientId;
 
     @Column(nullable = false)
@@ -31,4 +28,10 @@ public class Patient {
 
     @Column(nullable = false)
     private LocalDateTime admittedAt;
+
+    @Column(name = "bed_number")
+    private String bedNumber;
+
+    @Column(name = "room_number")
+    private String roomNumber;
 }
