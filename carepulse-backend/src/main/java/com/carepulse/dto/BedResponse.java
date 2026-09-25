@@ -30,5 +30,7 @@ public class BedResponse {
         private String patientId;
         private String fullName;
         private Integer triageSeverity;
+        private String bedNumber;
+        private String roomNumber;
     }
 }
