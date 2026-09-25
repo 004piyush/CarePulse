@@ -23,7 +23,7 @@ public class AuditLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "time_stamp", nullable = false)
     private LocalDateTime timeStamp;
 
     @Column(nullable = false)
