@@ -1,10 +1,7 @@
 package com.carepulse.service;
 
 import com.carepulse.config.JwtUtils;
-import com.carepulse.dto.JwtResponse;
-import com.carepulse.dto.LoginRequest;
-import com.carepulse.dto.MessageResponse;
-import com.carepulse.dto.RegisterRequest;
+import com.carepulse.dto.*;
 import com.carepulse.entity.User;
 import com.carepulse.mapper.UserMapper;
 import com.carepulse.repository.UserRepository;
@@ -17,6 +14,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,5 +66,12 @@ public class AuthService {
         return MessageResponse.builder()
                 .message("User registered successfully!")
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::toUserResponse)
+                .collect(Collectors.toList());
     }
 }
