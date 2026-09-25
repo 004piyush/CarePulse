@@ -21,12 +21,22 @@ public class Bed {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    // Constructed as: ICU-101-A
+    @Column(name = "bed_number", unique = true, nullable = false, length = 30)
     private String bedNumber;
+
+    @Transient
+    private Integer floor; // e.g., 1, 2, 3
+
+    @Transient
+    private Integer roomNumber; // e.g., 1 (formatted to 01)
+
+    @Transient
+    private String bedRank; // e.g., "A", "B", "C"
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Ward ward;
+    private Ward ward; // ICU, GENERAL, ISOLATION, PEDIATRIC
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -44,5 +54,19 @@ public class Bed {
 
     @Version
     private Integer version;
+
+    @PrePersist
+    @PreUpdate
+    public void assembleBedNumber() {
+        if (this.ward != null && this.floor != null && this.roomNumber != null && this.bedRank != null) {
+            // Produces: ICU-101-A
+            this.bedNumber = String.format("%s-%d%02d-%s",
+                    this.ward.name(),
+                    this.floor,
+                    this.roomNumber,
+                    this.bedRank.toUpperCase().trim()
+            );
+        }
+    }
 
 }
