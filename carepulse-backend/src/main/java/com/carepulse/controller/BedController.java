@@ -26,12 +26,12 @@ public class BedController {
     @GetMapping
     @PreAuthorize("hasAnyRole('TRIAGE', 'ICU_MANAGER', 'ADMIN')")
     public ResponseEntity<List<BedResponse>> getAllBeds(
-            @RequestParam(required = false) Ward wards,
+            @RequestParam(required = false) Ward ward,
             @RequestParam(required = false) BedStatus status,
             @RequestParam(required = false) Boolean hasVentilator,
             @RequestParam(required = false) String search )
     {
-        return ResponseEntity.ok(bedService.getAllBeds(wards, status, hasVentilator, search));
+        return ResponseEntity.ok(bedService.getAllBeds(ward, status, hasVentilator, search));
     }
 
 
