@@ -75,45 +75,45 @@ public class DataInitializer {
         }
 
         List<Bed> beds = List.of(
-                // ICU Ward
-                Bed.builder().bedNumber("ICU-101").ward(Ward.ICU).status(BedStatus.AVAILABLE)
-                        .hasVentilator(true).hasOxygen(true).build(),
-                Bed.builder().bedNumber("ICU-102").ward(Ward.ICU).status(BedStatus.OCCUPIED)
-                        .hasVentilator(true).hasOxygen(true).build(),
-                Bed.builder().bedNumber("ICU-103").ward(Ward.ICU).status(BedStatus.RESERVED)
-                        .hasVentilator(true).hasOxygen(false).build(),
-                Bed.builder().bedNumber("ICU-104").ward(Ward.ICU).status(BedStatus.CLEANING)
-                        .hasVentilator(false).hasOxygen(true).build(),
-                Bed.builder().bedNumber("ICU-105").ward(Ward.ICU).status(BedStatus.AVAILABLE)
-                        .hasVentilator(true).hasOxygen(true).build(),
+                // ICU Ward — Floor 1, Rooms 01-05
+                Bed.builder().ward(Ward.ICU).floor(1).roomNumber(1).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(true).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.ICU).floor(1).roomNumber(2).bedRank("A")
+                        .status(BedStatus.OCCUPIED).hasVentilator(true).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.ICU).floor(1).roomNumber(3).bedRank("A")
+                        .status(BedStatus.RESERVED).hasVentilator(true).hasOxygen(false).build(),
+                Bed.builder().ward(Ward.ICU).floor(1).roomNumber(4).bedRank("A")
+                        .status(BedStatus.CLEANING).hasVentilator(false).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.ICU).floor(1).roomNumber(5).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(true).hasOxygen(true).build(),
 
-                // General Ward
-                Bed.builder().bedNumber("GEN-201").ward(Ward.GENERAL).status(BedStatus.AVAILABLE)
-                        .hasVentilator(false).hasOxygen(true).build(),
-                Bed.builder().bedNumber("GEN-202").ward(Ward.GENERAL).status(BedStatus.OCCUPIED)
-                        .hasVentilator(false).hasOxygen(false).build(),
-                Bed.builder().bedNumber("GEN-203").ward(Ward.GENERAL).status(BedStatus.AVAILABLE)
-                        .hasVentilator(false).hasOxygen(true).build(),
-                Bed.builder().bedNumber("GEN-204").ward(Ward.GENERAL).status(BedStatus.CLEANING)
-                        .hasVentilator(false).hasOxygen(false).build(),
+                // General Ward — Floor 2, Rooms 01-04
+                Bed.builder().ward(Ward.GENERAL).floor(2).roomNumber(1).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(false).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.GENERAL).floor(2).roomNumber(2).bedRank("A")
+                        .status(BedStatus.OCCUPIED).hasVentilator(false).hasOxygen(false).build(),
+                Bed.builder().ward(Ward.GENERAL).floor(2).roomNumber(3).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(false).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.GENERAL).floor(2).roomNumber(4).bedRank("A")
+                        .status(BedStatus.CLEANING).hasVentilator(false).hasOxygen(false).build(),
 
-                // Isolation Ward
-                Bed.builder().bedNumber("ISO-301").ward(Ward.ISOLATION).status(BedStatus.AVAILABLE)
-                        .hasVentilator(true).hasOxygen(true).build(),
-                Bed.builder().bedNumber("ISO-302").ward(Ward.ISOLATION).status(BedStatus.OCCUPIED)
-                        .hasVentilator(false).hasOxygen(true).build(),
-                Bed.builder().bedNumber("ISO-303").ward(Ward.ISOLATION).status(BedStatus.AVAILABLE)
-                        .hasVentilator(true).hasOxygen(false).build(),
+                // Isolation Ward — Floor 3, Rooms 01-03
+                Bed.builder().ward(Ward.ISOLATION).floor(3).roomNumber(1).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(true).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.ISOLATION).floor(3).roomNumber(2).bedRank("A")
+                        .status(BedStatus.OCCUPIED).hasVentilator(false).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.ISOLATION).floor(3).roomNumber(3).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(true).hasOxygen(false).build(),
 
-                // Pediatric Ward
-                Bed.builder().bedNumber("PED-401").ward(Ward.PEDIATRIC).status(BedStatus.AVAILABLE)
-                        .hasVentilator(false).hasOxygen(true).build(),
-                Bed.builder().bedNumber("PED-402").ward(Ward.PEDIATRIC).status(BedStatus.RESERVED)
-                        .hasVentilator(false).hasOxygen(false).build(),
-                Bed.builder().bedNumber("PED-403").ward(Ward.PEDIATRIC).status(BedStatus.AVAILABLE)
-                        .hasVentilator(false).hasOxygen(true).build(),
-                Bed.builder().bedNumber("PED-404").ward(Ward.PEDIATRIC).status(BedStatus.CLEANING)
-                        .hasVentilator(false).hasOxygen(false).build()
+                // Pediatric Ward — Floor 4, Rooms 01-04
+                Bed.builder().ward(Ward.PEDIATRIC).floor(4).roomNumber(1).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(false).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.PEDIATRIC).floor(4).roomNumber(2).bedRank("A")
+                        .status(BedStatus.RESERVED).hasVentilator(false).hasOxygen(false).build(),
+                Bed.builder().ward(Ward.PEDIATRIC).floor(4).roomNumber(3).bedRank("A")
+                        .status(BedStatus.AVAILABLE).hasVentilator(false).hasOxygen(true).build(),
+                Bed.builder().ward(Ward.PEDIATRIC).floor(4).roomNumber(4).bedRank("A")
+                        .status(BedStatus.CLEANING).hasVentilator(false).hasOxygen(false).build()
         );
 
         bedRepository.saveAll(beds);
