@@ -22,7 +22,7 @@ public class AuditController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ICU_MANAGER', 'ADMIN')")
     public ResponseEntity<Page<AuditLog>> getAllAuditLogs(
-            @PageableDefault(size = 20, sort = "timestamp,desc") Pageable pageable) {
+            @PageableDefault(size = 20, sort = "timeStamp", direction = org.springframework.data.domain.Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok(auditService.getAllAuditLogs(pageable));
     }
 }
