@@ -19,9 +19,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 // Response Interceptor — Handle 401/403/409
@@ -30,15 +28,15 @@ api.interceptors.response.use(
   (error) => {
     if (error.response) {
       const { status, data } = error.response;
-      
+
       if (status === 401) {
         localStorage.removeItem('jwt_token');
         localStorage.removeItem('user');
         window.location.href = '/login';
       }
-      
+
       if (status === 409) {
-        console.error('Optimistic Lock Conflict:', data.message);
+        console.error('Optimistic Lock Conflict:', data?.message || 'Resource conflict occurred.');
       }
     }
     return Promise.reject(error);
