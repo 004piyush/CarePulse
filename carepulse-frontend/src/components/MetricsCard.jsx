@@ -20,14 +20,14 @@ const MetricCards = ({ beds, isLoading }) => {
     );
   }
 
-  const totalICU = beds.filter(b => b.wardType === 'ICU').length;
-  const availableICU = beds.filter(b => b.wardType === 'ICU' && b.status === 'AVAILABLE').length;
-  const ventilatorBeds = beds.filter(b => b.hasVentilator);
-  const occupiedVentilators = ventilatorBeds.filter(b => b.status === 'OCCUPIED').length;
-  const ventilatorRate = ventilatorBeds.length > 0 
-    ? Math.round((occupiedVentilators / ventilatorBeds.length) * 100) 
+  const totalICU = beds.filter((b) => (b.ward || b.wardType) === 'ICU').length;
+  const availableICU = beds.filter((b) => (b.ward || b.wardType) === 'ICU' && b.status === 'AVAILABLE').length;
+  const ventilatorBeds = beds.filter((b) => b.hasVentilator);
+  const occupiedVentilators = ventilatorBeds.filter((b) => b.status === 'OCCUPIED').length;
+  const ventilatorRate = ventilatorBeds.length > 0
+    ? Math.round((occupiedVentilators / ventilatorBeds.length) * 100)
     : 0;
-  const waitingTriage = beds.filter(b => b.status === 'RESERVED').length;
+  const waitingTriage = beds.filter((b) => b.status === 'RESERVED').length;
 
   const metrics = [
     {
@@ -63,8 +63,8 @@ const MetricCards = ({ beds, isLoading }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       {metrics.map((metric, index) => (
-        <div 
-          key={index} 
+        <div
+          key={index}
           className={`bg-white rounded-xl border p-6 transition-all hover:shadow-md ${metric.color}`}
         >
           <div className="flex items-center justify-between">
