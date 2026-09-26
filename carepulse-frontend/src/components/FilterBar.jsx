@@ -27,8 +27,10 @@ const FilterBar = ({ filters, onFilterChange }) => {
             className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <option value="">All Wards</option>
-            {Object.values(WARD_TYPES).map(type => (
-              <option key={type} value={type}>{type}</option>
+            {Object.values(WARD_TYPES).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
             ))}
           </select>
         </div>
@@ -40,8 +42,10 @@ const FilterBar = ({ filters, onFilterChange }) => {
           className="px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="">All Statuses</option>
-          {Object.values(BED_STATUS).map(status => (
-            <option key={status} value={status}>{status}</option>
+          {Object.values(BED_STATUS).map((status) => (
+            <option key={status} value={status}>
+              {status}
+            </option>
           ))}
         </select>
 
