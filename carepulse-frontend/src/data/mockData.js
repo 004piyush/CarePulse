@@ -42,37 +42,50 @@ export const VALID_TRANSITIONS = {
 
 export const generateMockBeds = () => {
   const beds = [];
-  const wards = [
-    { type: WARD_TYPES.ICU, prefix: 'ICU', count: 12 },
-    { type: WARD_TYPES.GENERAL, prefix: 'GEN', count: 20 },
-    { type: WARD_TYPES.ISOLATION, prefix: 'ISO', count: 8 },
-    { type: WARD_TYPES.PEDIATRIC, prefix: 'PED', count: 10 },
+  const wardConfigs = [
+    { type: WARD_TYPES.ICU, floor: 1, roomCount: 5 },
+    { type: WARD_TYPES.GENERAL, floor: 2, roomCount: 4 },
+    { type: WARD_TYPES.ISOLATION, floor: 3, roomCount: 3 },
+    { type: WARD_TYPES.PEDIATRIC, floor: 4, roomCount: 4 },
   ];
 
   let id = 1;
-  wards.forEach(({ type, prefix, count }) => {
-    for (let i = 1; i <= count; i++) {
-      const bedNum = i.toString().padStart(2, '0');
+  wardConfigs.forEach(({ type, floor, roomCount }) => {
+    for (let r = 1; r <= roomCount; r++) {
+      const roomStr = String(r).padStart(2, '0');
+      const bedRank = 'A';
+      const bedNumStr = `${type}-${floor}${roomStr}-${bedRank}`;
       const statuses = Object.values(BED_STATUS);
       const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-      
+      const isOccupiedOrReserved = randomStatus === BED_STATUS.OCCUPIED || randomStatus === BED_STATUS.RESERVED;
+
       beds.push({
         id: id++,
-        bedNumber: `${prefix}-BED-${bedNum}`,
+        bedNumber: bedNumStr,
+        ward: type,
         wardType: type,
+        floor: floor,
+        roomNumber: r,
+        bedRank: bedRank,
         status: randomStatus,
         hasVentilator: type === WARD_TYPES.ICU && Math.random() > 0.3,
         hasOxygen: Math.random() > 0.2,
-        patientId: randomStatus === BED_STATUS.OCCUPIED ? `PT-${1000 + id}` : null,
-        patientName: randomStatus === BED_STATUS.OCCUPIED 
-          ? ['John Doe', 'Jane Smith', 'Robert Brown', 'Emily Davis', 'Michael Johnson'][Math.floor(Math.random() * 5)]
+        currentPatient: isOccupiedOrReserved
+          ? {
+              id: id + 100,
+              patientId: `PT-${1000 + id}`,
+              fullName: ['John Doe', 'Jane Smith', 'Robert Brown', 'Emily Davis', 'Michael Johnson'][Math.floor(Math.random() * 5)],
+              triageSeverity: Math.floor(Math.random() * 4) + 1,
+              bedNumber: bedNumStr,
+              roomNumber: `${floor}${roomStr}`,
+            }
           : null,
         lockedBy: null,
         lastUpdated: new Date(Date.now() - Math.random() * 86400000).toISOString(),
       });
     }
   });
-  
+
   return beds;
 };
 
@@ -80,15 +93,15 @@ export const generateMockAuditLogs = () => {
   const logs = [];
   const actions = ['ALLOCATED', 'STATUS_CHANGED', 'RESERVED', 'RELEASED', 'CLEANING_STARTED', 'CLEANING_COMPLETED'];
   const users = ['Sarah Chen', 'Dr. James Wilson', 'Maria Rodriguez', 'Nurse Patel', 'Dr. Anderson'];
-  
+
   for (let i = 0; i < 50; i++) {
     const timestamp = new Date(Date.now() - Math.random() * 7 * 86400000);
     const action = actions[Math.floor(Math.random() * actions.length)];
-    
+
     logs.push({
       id: i + 1,
-      timestamp: timestamp.toISOString(),
-      bedNumber: `ICU-BED-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}`,
+      timeStamp: timestamp.toISOString(),
+      bedNumber: `ICU-101-A`,
       patientId: `PT-${1000 + Math.floor(Math.random() * 200)}`,
       action,
       performedBy: users[Math.floor(Math.random() * users.length)],
@@ -96,6 +109,6 @@ export const generateMockAuditLogs = () => {
       notes: action === 'ALLOCATED' ? 'Emergency admission - ESI Level 2' : null,
     });
   }
-  
-  return logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  return logs.sort((a, b) => new Date(b.timeStamp) - new Date(a.timeStamp));
 };
